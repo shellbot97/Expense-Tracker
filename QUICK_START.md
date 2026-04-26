@@ -55,7 +55,7 @@ python-dotenv==1.0.0
 # Database
 sqlalchemy==2.0.23
 alembic==1.12.1
-psycopg2-binary==2.9.9
+# SQLite is built into Python - no driver needed!
 
 # Authentication
 python-jose[cryptography]==3.3.0
@@ -87,46 +87,26 @@ pip install -r requirements.txt
 
 ## Step 3: Set Up Database
 
-### Option A: Docker (Recommended)
+### SQLite (No Setup Required!)
+
+SQLite requires no installation or configuration. The database file will be created automatically when you run the application.
+
 ```bash
-# Create docker-compose.yml
-cat > docker-compose.yml << 'EOF'
-version: '3.8'
-
-services:
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: expense_user
-      POSTGRES_PASSWORD: dev_password_change_me
-      POSTGRES_DB: expense_tracker
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
-EOF
-
-# Start database
-docker-compose up -d
-
-# Verify it's running
-docker-compose ps
+# Database file will be created at: ./expense_tracker.db
+# No additional setup needed!
 ```
 
-### Option B: Local PostgreSQL
+**Benefits of SQLite for this project**:
+- ✅ Zero configuration
+- ✅ True local-first (privacy-aligned)
+- ✅ Perfect for single-user personal finance
+- ✅ Easy backups (just copy the .db file)
+- ✅ No external dependencies
+
+**Optional: Enable WAL mode for better concurrency**
 ```bash
-# macOS
-brew install postgresql@15
-brew services start postgresql@15
-
-# Ubuntu/Debian
-sudo apt-get install postgresql-15
-
-# Create database
-createdb expense_tracker
+# This will be handled automatically in the application config
+# WAL (Write-Ahead Logging) allows concurrent reads during writes
 ```
 
 ---
@@ -137,7 +117,7 @@ createdb expense_tracker
 # Create .env file
 cat > .env << 'EOF'
 # Database
-DATABASE_URL=postgresql://expense_user:dev_password_change_me@localhost:5432/expense_tracker
+DATABASE_URL=sqlite:///./expense_tracker.db
 
 # Security
 JWT_SECRET=your-secret-key-change-this-to-random-string
@@ -316,13 +296,10 @@ cat .ai-memory/active-session.md
 # 4. Activate environment
 source venv/bin/activate
 
-# 5. Start database
-docker-compose up -d
-
-# 6. Run tests (make sure everything still works)
+# 5. Run tests (make sure everything still works)
 pytest
 
-# 7. Start server
+# 6. Start server
 uvicorn src.main:app --reload
 ```
 
@@ -371,9 +348,10 @@ git push
 
 ```bash
 # Database
-docker-compose up -d                    # Start database
-docker-compose down                     # Stop database
-docker-compose exec db psql -U expense_user -d expense_tracker  # Connect to DB
+# SQLite - no server to start/stop!
+sqlite3 expense_tracker.db                # Open database in SQLite CLI
+sqlite3 expense_tracker.db ".tables"      # List all tables
+sqlite3 expense_tracker.db ".schema users"  # Show table schema
 
 # Testing
 pytest                                  # Run all tests
@@ -401,16 +379,17 @@ git push origin feature/F001-T001      # Push branch
 
 ## Troubleshooting
 
-### Database Connection Fails
+### Database Issues
 ```bash
-# Check if PostgreSQL is running
-docker-compose ps
+# Check if database file exists
+ls -lh expense_tracker.db
 
-# Check logs
-docker-compose logs db
+# Backup database
+cp expense_tracker.db expense_tracker_backup_$(date +%Y%m%d).db
 
-# Restart
-docker-compose restart db
+# Reset database (delete and recreate)
+rm expense_tracker.db
+# Run migrations or app to recreate
 ```
 
 ### Import Errors
@@ -430,21 +409,22 @@ pytest -v
 # Run specific test file
 pytest tests/unit/services/test_auth.py -v
 
-# Check if database is in clean state
-# (Integration tests may need reset)
+# Check if test database is in clean state
+# SQLite in-memory tests should be isolated automatically
 ```
 
 ---
 
 ## Next Steps
 
-1. ✅ **Technology chosen**: Python + FastAPI
-2. ✅ **Project structure created**: Directories set up
-3. ✅ **Database running**: PostgreSQL ready
-4. ✅ **First test written**: TDD cycle started
-5. ⏭️ **Continue F001**: Complete all authentication tasks
-6. ⏭️ **Move to F002**: Design database models
-7. ⏭️ **Build F003-F007**: Core MVP features
+1. ✅ **Technology chosen**: Python + FastAPI + SQLite
+2. ⏭️ **Project structure**: Create directories (see below)
+3. ⏭️ **Python environment**: Set up virtualenv and install dependencies
+4. ⏭️ **Database setup**: No setup needed (SQLite auto-creates)
+5. ⏭️ **First test written**: Start TDD cycle with F001
+6. ⏭️ **Continue F001**: Complete all authentication tasks
+7. ⏭️ **Move to F002**: Design database models
+8. ⏭️ **Build F003-F007**: Core MVP features
 
 ---
 

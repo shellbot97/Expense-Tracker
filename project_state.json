@@ -11,55 +11,55 @@
       "name": "Authentication & Authorization",
       "description": "Secure login and access control system",
       "priority": "critical",
-      "status": "pending",
+      "status": "completed",
       "dependencies": [],
       "subtasks": [
         {
           "id": "F001-T001",
           "name": "Design authentication schema",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "2h"
         },
         {
           "id": "F001-T002",
           "name": "Implement user registration endpoint",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "3h"
         },
         {
           "id": "F001-T003",
           "name": "Implement login/logout endpoints",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "3h"
         },
         {
           "id": "F001-T004",
           "name": "Implement JWT token management",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "4h"
         },
         {
           "id": "F001-T005",
           "name": "Add password hashing and validation",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "2h"
         },
         {
           "id": "F001-T006",
           "name": "Write authentication middleware",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "2h"
         },
         {
           "id": "F001-T007",
           "name": "Unit tests for auth module",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "4h"
         }
@@ -820,10 +820,10 @@
     }
   ],
   "technical_stack": {
-    "backend": "To be decided (Python/Node.js/Go)",
-    "database": "To be decided (PostgreSQL/SQLite)",
+    "backend": "Python 3.10+ with FastAPI",
+    "database": "SQLite 3.35+ (file-based with WAL mode)",
     "ai_provider": "To be decided (OpenAI/Anthropic/Local LLM)",
-    "testing": "To be decided based on language choice"
+    "testing": "pytest with pytest-cov and pytest-asyncio"
   },
   "milestones": [
     {
