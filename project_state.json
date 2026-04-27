@@ -70,62 +70,62 @@
       "name": "Data Models & Database Schema",
       "description": "Core data structures for users, transactions, categories, and sources",
       "priority": "critical",
-      "status": "pending",
+      "status": "completed",
       "dependencies": [],
       "subtasks": [
         {
           "id": "F002-T001",
           "name": "Design user model schema",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "1h"
         },
         {
           "id": "F002-T002",
           "name": "Design transaction model schema",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "2h"
         },
         {
           "id": "F002-T003",
           "name": "Design category model schema",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "2h"
         },
         {
           "id": "F002-T004",
           "name": "Design source model schema",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "1h"
         },
         {
           "id": "F002-T005",
           "name": "Design category mapping rules model",
-          "status": "pending",
+          "status": "completed",
           "priority": "high",
           "estimated_effort": "2h"
         },
         {
           "id": "F002-T006",
           "name": "Create database migrations",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "3h"
         },
         {
           "id": "F002-T007",
           "name": "Implement ORM models",
-          "status": "pending",
+          "status": "completed",
           "priority": "critical",
           "estimated_effort": "4h"
         },
         {
           "id": "F002-T008",
           "name": "Add indexes and constraints",
-          "status": "pending",
+          "status": "completed",
           "priority": "high",
           "estimated_effort": "2h"
         }

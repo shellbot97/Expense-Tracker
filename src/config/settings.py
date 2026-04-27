@@ -29,8 +29,10 @@ class Settings:
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
 
     # AI Features (Optional)
-    AI_PROVIDER: str = os.getenv("AI_PROVIDER", "")
-    AI_API_KEY: str = os.getenv("AI_API_KEY", "")
+    AI_PROVIDER: str = os.getenv("AI_PROVIDER", "")  # "ollama", "anthropic", etc.
+    AI_MODEL: str = os.getenv("AI_MODEL", "llama3")
+    AI_API_BASE: str = os.getenv("AI_API_BASE", "http://localhost:11434")
+    AI_API_KEY: str = os.getenv("AI_API_KEY", "")  # Not needed for Ollama
 
     # Server
     API_HOST: str = os.getenv("API_HOST", "0.0.0.0")
@@ -64,6 +66,9 @@ class Settings:
     @property
     def ai_enabled(self) -> bool:
         """Check if AI features are enabled"""
+        # For Ollama, only provider is needed; for others, API key is also required
+        if self.AI_PROVIDER == "ollama":
+            return bool(self.AI_PROVIDER and self.AI_MODEL)
         return bool(self.AI_PROVIDER and self.AI_API_KEY)
 
 

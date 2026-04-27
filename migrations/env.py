@@ -9,6 +9,10 @@ from alembic import context
 from src.config.database import Base
 from src.config.settings import settings
 from src.models.user import User  # Import all models here for autogenerate
+from src.models.category import Category
+from src.models.source import Source
+from src.models.transaction import Transaction
+from src.models.budget import Budget
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
