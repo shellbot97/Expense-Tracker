@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: expense-tracker-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./.env:/app/.env:ro
+    environment:
+      - DATABASE_URL=sqlite:///./data/expense_tracker.db
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-development-secret-key}
+      - AI_PROVIDER=${AI_PROVIDER:-ollama}
+      - AI_MODEL=${AI_MODEL:-llama3}
+      - AI_API_BASE=${AI_API_BASE:-http://host.docker.internal:11434}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - expense-tracker-network
+
+networks:
+  expense-tracker-network:
+    driver: bridge
+
+volumes:
+  expense-data:
+    driver: local
